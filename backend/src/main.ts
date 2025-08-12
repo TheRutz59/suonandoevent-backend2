@@ -3,21 +3,24 @@ import cors from 'cors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
-app.use(cors({ origin: true, credentials: true }));
-app.use(express.json());
+const port = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
 app.use(cookieParser());
+app.use(express.json());
 
-const items = [{ id: 1, name: 'Impianto Audio', quantity: 2 }];
-const bookings = [{ id: 1, itemId: 1, startDate: new Date().toISOString(), endDate: new Date().toISOString() }];
+// Route di test per la root "/"
+app.get('/', (req, res) => {
+  res.send('Backend funzionante 🚀');
+});
 
-app.post('/auth/login', (req, res) => res.json({ token: 'stub-token' }));
-app.get('/inventory', (req, res) => res.json(items));
-app.get('/bookings', (req, res) => res.json(bookings));
+// Esempio: altra route API
+app.get('/api/hello', (req, res) => {
+  res.json({ message: 'Ciao dal backend!' });
+});
 
-// health-check semplice (utile per Render)
-app.get('/', (req, res) => res.send('OK'));
-
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server in ascolto sulla porta ${PORT}`);
+// Avvio server
+app.listen(port, () => {
+  console.log(`Server avviato su porta ${port}`);
 });
