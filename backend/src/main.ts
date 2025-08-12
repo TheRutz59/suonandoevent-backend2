@@ -1,26 +1,22 @@
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
+import express from "express";
+import cors from "cors";
 
 const app = express();
-const port = process.env.PORT || 3000;
 
-// Middleware
-app.use(cors());
-app.use(cookieParser());
+// Permette richieste dal frontend
+app.use(cors({
+  origin: "https://tuo-frontend.onrender.com", // URL del frontend su Render
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
 app.use(express.json());
 
-// Route di test per la root "/"
-app.get('/', (req, res) => {
-  res.send('Backend funzionante 🚀');
+app.get("/", (req, res) => {
+  res.send("Backend funzionante 🚀");
 });
 
-// Esempio: altra route API
-app.get('/api/hello', (req, res) => {
-  res.json({ message: 'Ciao dal backend!' });
-});
-
-// Avvio server
+const port = process.env.PORT || 3000;
 app.listen(port, () => {
   console.log(`Server avviato su porta ${port}`);
 });
