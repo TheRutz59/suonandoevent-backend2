@@ -14,5 +14,7 @@ app.post('/auth/login',(req,res)=>{ return res.json({token:'stub-token'}); })
 app.get('/inventory',(req,res)=> res.json(items))
 app.get('/bookings',(req,res)=> res.json(bookings))
 
-const PORT = process.env.PORT || 3001
-app.listen(PORT, ()=> console.log('Backend attivo su',PORT))
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server in ascolto sulla porta ${PORT}`);
+});
